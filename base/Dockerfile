@@ -64,6 +64,7 @@ ENV PYTHONHASHSEED 1
 
 COPY hive-site.xml /spark/conf/
 COPY spark-env.sh /spark/conf/
+COPY spark-defaults.conf /spark/conf/
 
 RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o /spark/jars/aws-java-sdk.jar && \
     curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o /spark/jars/hadoop-aws.jar
