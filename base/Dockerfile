@@ -49,10 +49,10 @@ RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat \
       && rm spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       #&& cd /css \
       #&& jar uf /spark/jars/spark-core_2.11-${SPARK_VERSION}.jar org/apache/spark/ui/static/timeline-view.css \
-      && wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	  && tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
-	  && mv apache-hive-$HIVE_VERSION-bin hive && \
-	  && rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
+      && wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz \
+	  && tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz \
+	  && mv apache-hive-$HIVE_VERSION-bin hive \
+	  && rm apache-hive-$HIVE_VERSION-bin.tar.gz \
       && cd /
 
 ENV JAVA_HOME /usr/lib/jvm/default-jvm/jre/
