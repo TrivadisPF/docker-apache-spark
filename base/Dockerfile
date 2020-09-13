@@ -46,6 +46,7 @@ RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat \
 #      && wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && wget https://github.com/TrivadisPF/docker-apache-spark/releases/download/test/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && tar -xvzf spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
+      && mv spark-2.4.6-bin-custom-spark spark-${SPARK_VERSION}-bin-without-hadoop \
       && mv spark-${SPARK_VERSION}-bin-without-hadoop spark \
       && rm spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       #&& cd /css \
