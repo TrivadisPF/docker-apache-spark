@@ -1,7 +1,24 @@
+FROM openjdk:8 AS sparkbuild
+
+ENV SPARK_VERSION=2.4.6
+
+ARG SPARK_BUILD_NAME='without-hadoop'
+ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn'
+
+ARG SPARK_SOURCE=/tmp/spark/src
+ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/v${SPARK_VERSION}.tar.gz
+
+RUN mkdir -p ${SPARK_SOURCE} \
+    && curl -sL ${SPARK_SRC_URL} | tar -xz -C ${SPARK_SOURCE} --strip-component=1 \
+    && cd ${SPARK_SOURCE} \
+    && ./dev/make-distribution.sh --name ${SPARK_BUILD_NAME} --tgz ${SPARK_BUILD_PROFILES}
+
 FROM python:3.7-alpine
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
+
+ENV SPARK_SOURCE=/tmp/spark/src
 ENV ENABLE_INIT_DAEMON true
 ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
 ENV INIT_DAEMON_STEP spark_master_init
@@ -10,6 +27,8 @@ ENV SPARK_VERSION=2.4.6
 ENV HADOOP_VERSION=2.8.5
 ENV HIVE_VERSION=2.3.3
 ENV AWS_VERSION=1.11.271
+
+COPY --from=sparkbuild ${SPARK_SOURCE}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz .
 
 COPY wait-for-step.sh /
 COPY execute-step.sh /
@@ -43,14 +62,9 @@ ENV SPARK_DIST_CLASSPATH=$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/com
 RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
-#      && wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
-      && wget https://github.com/TrivadisPF/docker-apache-spark/releases/download/test/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && tar -xvzf spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
-      && mv spark-2.4.6-bin-custom-spark spark-${SPARK_VERSION}-bin-without-hadoop \
       && mv spark-${SPARK_VERSION}-bin-without-hadoop spark \
       && rm spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
-      #&& cd /css \
-      #&& jar uf /spark/jars/spark-core_2.11-${SPARK_VERSION}.jar org/apache/spark/ui/static/timeline-view.css \
       && wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz \
 	  && tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz \
 	  && mv apache-hive-$HIVE_VERSION-bin hive \
