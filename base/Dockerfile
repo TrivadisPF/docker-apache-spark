@@ -43,7 +43,8 @@ ENV SPARK_DIST_CLASSPATH=$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/com
 RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
-      && wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
+#      && wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
+      && wget https://github.com/TrivadisPF/docker-apache-spark/releases/download/test/spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && tar -xvzf spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && mv spark-${SPARK_VERSION}-bin-without-hadoop spark \
       && rm spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
