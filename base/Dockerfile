@@ -3,7 +3,7 @@ FROM openjdk:8 AS sparkbuild
 ENV SPARK_VERSION=2.4.6
 
 ARG SPARK_BUILD_NAME='without-hadoop'
-ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn'
+ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided'
 
 ARG SPARK_SOURCE=/tmp/spark/src
 ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/v${SPARK_VERSION}.tar.gz
