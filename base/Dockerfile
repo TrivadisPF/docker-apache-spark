@@ -1,6 +1,6 @@
 FROM openjdk:8 AS sparkbuild
 
-ENV SPARK_VERSION=2.4.6
+ENV SPARK_VERSION=2.4.7
 
 ARG SPARK_BUILD_NAME='without-hadoop'
 ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided'
@@ -23,7 +23,7 @@ ENV ENABLE_INIT_DAEMON true
 ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
 ENV INIT_DAEMON_STEP spark_master_init
 
-ENV SPARK_VERSION=2.4.6
+ENV SPARK_VERSION=2.4.7
 ENV HADOOP_VERSION=2.8.5
 ENV HIVE_VERSION=2.3.3
 ENV AWS_VERSION=1.11.123
