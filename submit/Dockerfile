@@ -11,4 +11,6 @@ ENV SPARK_APPLICATION_ARGS ""
 
 COPY submit.sh /
 
+RUN mkdir -p /var/log/spark/logs
+
 CMD ["/bin/bash", "/submit.sh"]
