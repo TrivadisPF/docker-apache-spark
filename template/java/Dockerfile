@@ -6,13 +6,8 @@ ENV SPARK_APPLICATION_JAR_NAME application-1.0
 
 COPY template.sh /
 
-# Enables apt to run from the new sources - Guido Schmutz 19.5.2019
-RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
-
-RUN apt-get update \
-      && apt-get install -y maven \
+RUN apk add --no-cache openjdk8 maven\
       && chmod +x /template.sh \
-      && update-java-alternatives -s java-1.8.0-openjdk-amd64 \
       && mkdir -p /app \
       && mkdir -p /usr/src/app
 
