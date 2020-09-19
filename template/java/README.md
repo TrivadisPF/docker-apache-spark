@@ -1,6 +1,6 @@
 # Spark Java template
 
-The Spark Java template image serves as a base image to build your own Java application to run on a Spark cluster. See [big-data-europe/docker-spark README](https://github.com/big-data-europe/docker-spark) for a description how to setup a Spark cluster.
+The Spark Java template image serves as a base image to build your own Java application to run on a Spark cluster. See <http://github.com/trivadispf/platys-modern-data-platform> for how to setup a Spark cluster as part of a `platys` dataplatform.
 
 ### Package your application using Maven
 You can build and launch your Java application on a Spark cluster by extending this image with your sources. The template uses [Maven](https://maven.apache.org/) as build tool, so make sure you have a `pom.xml` file for your application specifying all the dependencies.
@@ -34,9 +34,9 @@ If you overwrite the template's `CMD` in your Dockerfile, make sure to execute t
 
 #### Example Dockerfile
 ```
-FROM bde2020/spark-java-template:2.4.0-hadoop3.1
+FROM trivadis/spark-java-template:2.4.7-hadoop2.8
 
-MAINTAINER Gezim Sejdiu <g.sejdiu@gmail.com>
+MAINTAINER XXX YYY <xxx.yyy@gmail.com>
 
 ENV SPARK_APPLICATION_JAR_NAME my-app-1.0-SNAPSHOT-with-dependencies
 ENV SPARK_APPLICATION_MAIN_CLASS eu.bde.my.Application
