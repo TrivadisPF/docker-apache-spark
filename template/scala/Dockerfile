@@ -3,15 +3,12 @@ FROM trivadis/apache-spark-submit:2.4.7-hadoop2.8
 MAINTAINER Cecile Tonglet <cecile.tonglet@tenforce.com>
 MAINTAINER Gezim Sejdiu <g.sejdiu@gmail.com>
 
-# Enables apt to run from the new sources - Guido Schmutz 19.5.2019
-RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
+ARG SBT_VERSION
+ENV SBT_VERSION=${SBT_VERSION:-1.2.6}
 
-RUN apt-get-install apt-transport-https
+RUN wget -O - https://piccolo.link/sbt-1.2.6.tgz | gunzip | tar -x -C /usr/local
 
-RUN echo "deb https://dl.bintray.com/sbt/debian /" > /etc/apt/sources.list.d/sbt.list \
-      && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-
-RUN apt-get-install sbt
+ENV PATH /usr/local/sbt/bin:${PATH}
 
 WORKDIR /app
 
