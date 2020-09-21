@@ -1,9 +1,6 @@
-FROM openjdk:8 AS sparkbuild
+FROM openjdk:11 AS sparkbuild
 
 ENV SPARK_VERSION=3.0.0
-
-ENV MAVEN_OPTS="-Xms256m -Xmx2g -XX:ReservedCodeCacheSize=1g"
-ENV JAVA_OPTS="-Xms256m -Xmx2g -XX:MaxPermSize  -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2G -Xss2M"
 
 ARG SPARK_BUILD_NAME='without-hadoop'
 ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided'
