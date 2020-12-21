@@ -1,4 +1,4 @@
-FROM trivadis/apache-spark-base:3.0.1-hadoop2.10
+FROM trivadis/apache-spark-base:3.0.1-hadoop3.2
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
