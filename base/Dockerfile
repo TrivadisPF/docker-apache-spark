@@ -1,4 +1,4 @@
-FROM openjdk:11 AS sparkbuild
+FROM openjdk:8 AS sparkbuild
 
 ENV SPARK_VERSION=3.0.1
 ENV HADOOP_VERSION=3.2.1
@@ -59,7 +59,7 @@ ENV USER=root
 ENV PATH $HADOOP_PREFIX/bin/:$PATH
 ENV SPARK_DIST_CLASSPATH=$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*
 
-RUN apk add --no-cache curl bash gnupg wget openjdk11-jre nss libc6-compat \
+RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat \
       && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
       && tar -xvzf spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
