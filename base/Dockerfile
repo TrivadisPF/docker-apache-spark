@@ -1,11 +1,10 @@
 FROM openjdk:8 AS sparkbuild
 
 ENV SPARK_VERSION=2.4.7
-
-ENV MAVEN_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=1g"
+ENV HADOOP_VERSION=2.8.5
 
 ARG SPARK_BUILD_NAME='without-hadoop'
-ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided'
+ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=${HADOOP_VERSION}'
 
 ARG SPARK_SOURCE=/tmp/spark/src
 ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/v${SPARK_VERSION}.tar.gz
@@ -27,8 +26,7 @@ ENV INIT_DAEMON_STEP spark_master_init
 
 ENV SPARK_VERSION=2.4.7
 ENV HADOOP_VERSION=2.8.5
-ENV HIVE_VERSION=2.3.3
-ENV AWS_VERSION=1.11.123
+ENV HIVE_VERSION=2.3.7
 
 COPY --from=sparkbuild ${SPARK_SOURCE}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz .
 
@@ -41,7 +39,7 @@ COPY finish-step.sh /
 # Setup Perl so that entrypoint.sh works
 RUN apk add --update perl && rm -rf /var/cache/apk/*
 
-RUN  wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
+RUN  wget https://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
       && tar -xvf hadoop-${HADOOP_VERSION}.tar.gz -C /opt/ \
       && rm hadoop-${HADOOP_VERSION}.tar.gz \
       && cd /
@@ -89,12 +87,7 @@ COPY hive-site.xml /spark/conf/
 COPY spark-env.sh /spark/conf/
 COPY spark-defaults.conf /spark/conf/
 
-RUN curl -L https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/${AWS_VERSION}/aws-java-sdk-bundle-${AWS_VERSION}.jar -o /spark/jars/aws-java-sdk.jar && \
-    curl -L https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/${HADOOP_VERSION}/hadoop-aws-${HADOOP_VERSION}.jar -o /spark/jars/hadoop-aws.jar
-
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
-
-
