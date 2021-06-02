@@ -6,12 +6,12 @@ ENV HADOOP_VERSION=2.8.5
 ARG SPARK_BUILD_NAME='without-hadoop'
 ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=${HADOOP_VERSION}'
 
-ARG SPARK_SOURCE=/tmp/spark/src
-ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/v${SPARK_VERSION}.tar.gz
+ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/refs/tags/v${SPARK_VERSION}.tar.gz
 
-RUN mkdir -p ${SPARK_SOURCE} \
-    && curl -sL ${SPARK_SRC_URL} | tar -xz -C ${SPARK_SOURCE} --strip-component=1 \
-    && cd ${SPARK_SOURCE} \
+RUN wget ${SPARK_SRC_URL} \
+    && tar -xf v${SPARK_VERSION}.tar.gz \
+    && rm v${SPARK_VERSION}.tar.gz \
+    && cd spark-${SPARK_VERSION} \
     && ./dev/make-distribution.sh --name ${SPARK_BUILD_NAME} --tgz ${SPARK_BUILD_PROFILES}
 
 FROM python:3.7-alpine
@@ -19,14 +19,14 @@ FROM python:3.7-alpine
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
 
-ENV SPARK_SOURCE=/tmp/spark/src
-ENV ENABLE_INIT_DAEMON true
-ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
-ENV INIT_DAEMON_STEP spark_master_init
-
 ENV SPARK_VERSION=2.4.7
 ENV HADOOP_VERSION=2.8.5
 ENV HIVE_VERSION=2.3.7
+
+ENV SPARK_SOURCE=spark-${SPARK_VERSION}
+ENV ENABLE_INIT_DAEMON true
+ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
+ENV INIT_DAEMON_STEP spark_master_init
 
 COPY --from=sparkbuild ${SPARK_SOURCE}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz .
 
