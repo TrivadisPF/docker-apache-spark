@@ -1,6 +1,6 @@
 FROM openjdk:8 AS sparkbuild
 
-ENV SPARK_VERSION=2.4.7
+ENV SPARK_VERSION=2.4.8
 ENV HADOOP_VERSION=2.8.5
 
 ARG SPARK_BUILD_NAME='without-hadoop'
@@ -19,7 +19,7 @@ FROM python:3.7-alpine
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
 
-ENV SPARK_VERSION=2.4.7
+ENV SPARK_VERSION=2.4.8
 ENV HADOOP_VERSION=2.8.5
 ENV HIVE_VERSION=2.3.7
 
