@@ -1,4 +1,4 @@
-FROM trivadis/apache-spark-submit:3.1.3-hadoop3.3
+FROM trivadis/apache-spark-submit:3.1.3-hadoop3.2
 
 MAINTAINER Cecile Tonglet <cecile.tonglet@tenforce.com>
 MAINTAINER Gezim Sejdiu <g.sejdiu@gmail.com>

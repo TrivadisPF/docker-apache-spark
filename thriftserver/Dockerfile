@@ -1,4 +1,4 @@
-FROM trivadis/apache-spark-base:3.1.3-hadoop3.3
+FROM trivadis/apache-spark-base:3.1.3-hadoop3.2
 
 LABEL maintainer="Guido Schmutz"
 
