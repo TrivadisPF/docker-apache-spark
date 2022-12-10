@@ -18,7 +18,7 @@ FROM python:3.7-alpine
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
-ENV SPARK_VERSION=3.2.1
+ENV SPARK_VERSION=3.2.3
 ENV HADOOP_VERSION=3.2.1
 ENV HIVE_VERSION=2.3.7
 
