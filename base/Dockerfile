@@ -1,7 +1,7 @@
 FROM openjdk:8 AS sparkbuild
 
 ENV SPARK_VERSION=3.2.3
-ENV HADOOP_VERSION=3.2.1
+ENV HADOOP_VERSION=3.2.3
 
 ARG SPARK_BUILD_NAME='without-hadoop'
 ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.2.1'
@@ -19,7 +19,7 @@ FROM python:3.7-alpine
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
 ENV SPARK_VERSION=3.2.3
-ENV HADOOP_VERSION=3.2.1
+ENV HADOOP_VERSION=3.2.3
 ENV HIVE_VERSION=2.3.7
 
 ENV SPARK_SOURCE=spark-${SPARK_VERSION}
