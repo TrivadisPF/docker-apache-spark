@@ -4,7 +4,7 @@ ENV SPARK_VERSION=3.2.3
 ENV HADOOP_VERSION=3.2.3
 
 ARG SPARK_BUILD_NAME='without-hadoop'
-ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.2.1'
+ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.2.3'
 
 ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/refs/tags/v${SPARK_VERSION}.tar.gz
 
