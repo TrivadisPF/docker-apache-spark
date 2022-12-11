@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=3.2.3-hadoop3.2
+TAG=3.2.3-hadoop3.3
 
 cd base
 
