@@ -32,6 +32,7 @@ COPY --from=sparkbuild ${SPARK_SOURCE}/spark-${SPARK_VERSION}-bin-without-hadoop
 COPY wait-for-step.sh /
 COPY execute-step.sh /
 COPY finish-step.sh /
+COPY maven-download.sh /
 
 #COPY bde-spark.css /css/org/apache/spark/ui/static/timeline-view.css
 
