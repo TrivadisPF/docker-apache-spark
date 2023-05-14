@@ -14,7 +14,7 @@ RUN wget ${SPARK_SRC_URL} \
     && cd spark-${SPARK_VERSION} \
     && ./dev/make-distribution.sh --name ${SPARK_BUILD_NAME} --tgz ${SPARK_BUILD_PROFILES}
 
-FROM python:3.7-alpine
+FROM python:3.10-alpine
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
