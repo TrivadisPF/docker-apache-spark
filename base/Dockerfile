@@ -1,7 +1,7 @@
 FROM openjdk:8 AS sparkbuild
 
-ENV SPARK_VERSION=3.3.2
-ENV HADOOP_VERSION=3.3.4
+ENV SPARK_VERSION=3.5.0
+ENV HADOOP_VERSION=3.3.6
 
 ARG SPARK_BUILD_NAME='without-hadoop'
 ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.3.4'
@@ -18,8 +18,8 @@ FROM python:3.10-alpine
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
-ENV SPARK_VERSION=3.3.2
-ENV HADOOP_VERSION=3.3.4
+ENV SPARK_VERSION=3.5.0
+ENV HADOOP_VERSION=3.3.6
 ENV HIVE_VERSION=2.3.7
 
 ENV SPARK_SOURCE=spark-${SPARK_VERSION}
@@ -39,8 +39,8 @@ COPY maven-download.sh /
 # Setup Perl so that entrypoint.sh works
 RUN apk add --update perl && rm -rf /var/cache/apk/*
 
-RUN  wget https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
-      && tar -xvf hadoop-${HADOOP_VERSION}.tar.gz -C /opt/ \
+RUN  wget https://downloads.apache.org/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
+      && tar -zxvf hadoop-${HADOOP_VERSION}.tar.gz -C /opt/ \
       && rm hadoop-${HADOOP_VERSION}.tar.gz \
       && cd /
 
@@ -59,8 +59,8 @@ ENV USER=root
 ENV PATH $HADOOP_PREFIX/bin/:$PATH
 ENV SPARK_DIST_CLASSPATH=$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*
 
-RUN apk add --no-cache curl bash gnupg wget openjdk8-jre nss libc6-compat procps coreutils \
-      && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
+RUN apk add --no-cache curl bash gnupg openjdk8-jre nss libc6-compat procps coreutils \
+#      && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 \
       && chmod +x *.sh \
       && tar -xvzf spark-${SPARK_VERSION}-bin-without-hadoop.tgz \
       && mv spark-${SPARK_VERSION}-bin-without-hadoop spark \

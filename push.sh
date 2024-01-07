@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=3.3.2-hadoop3.3
+TAG=3.5.0-hadoop3.3
 
 docker push trivadis/apache-spark-base:${TAG}
 docker push trivadis/apache-spark-master:${TAG}
