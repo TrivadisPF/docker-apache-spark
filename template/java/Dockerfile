@@ -1,4 +1,4 @@
-FROM trivadis/apache-spark-submit:3.3.2-hadoop3.3
+FROM trivadis/apache-spark-submit:3.3.2-hadoop3.3-java11
 
 MAINTAINER Gezim Sejdiu <g.sejdiu@gmail.com>
 
@@ -12,7 +12,7 @@ RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://ar
 RUN apt-get update \
       && apt-get install -y maven \
       && chmod +x /template.sh \
-      && update-java-alternatives -s java-1.8.0-openjdk-amd64 \
+#      && update-java-alternatives -s java-1.8.0-openjdk-amd64 \
       && mkdir -p /app \
       && mkdir -p /usr/src/app
 
