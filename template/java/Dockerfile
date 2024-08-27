@@ -12,7 +12,7 @@ RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://ar
 RUN apt-get update \
       && apt-get install -y maven \
       && chmod +x /template.sh \
-      && update-java-alternatives -s java-1.8.0-openjdk-amd64 \
+#      && update-java-alternatives -s java-1.8.0-openjdk-amd64 \
       && mkdir -p /app \
       && mkdir -p /usr/src/app
 
