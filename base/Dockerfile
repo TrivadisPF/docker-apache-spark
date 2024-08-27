@@ -1,4 +1,4 @@
-FROM openjdk:8 AS sparkbuild
+FROM openjdk:11 AS sparkbuild
 
 ENV SPARK_VERSION=3.2.4
 ENV HADOOP_VERSION=3.3.4
