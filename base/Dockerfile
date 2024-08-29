@@ -1,10 +1,10 @@
 FROM openjdk:11 AS sparkbuild
 
-ENV SPARK_VERSION=3.3.2
+ENV SPARK_VERSION=3.4.1
 ENV HADOOP_VERSION=3.3.6
 
 ARG SPARK_BUILD_NAME='without-hadoop'
-ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.3.4'
+ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -Dhadoop.version=3.3.6'
 
 ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/refs/tags/v${SPARK_VERSION}.tar.gz
 
@@ -18,7 +18,7 @@ FROM python:3.10-alpine
 
 LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>, Guido Schmutz <guido.schmutz@gmail.com>"
 
-ENV SPARK_VERSION=3.3.2
+ENV SPARK_VERSION=3.4.1
 ENV HADOOP_VERSION=3.3.6
 ENV HIVE_VERSION=2.3.7
 
