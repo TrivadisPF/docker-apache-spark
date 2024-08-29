@@ -8,6 +8,8 @@ ARG SPARK_BUILD_PROFILES='-Phive -Phive-thriftserver -Pyarn -Phadoop-provided -D
 
 ARG SPARK_SRC_URL=https://github.com/apache/spark/archive/refs/tags/v${SPARK_VERSION}.tar.gz
 
+RUN apk add --no-cache curl bash wget 
+
 RUN wget ${SPARK_SRC_URL} \
     && tar -xf v${SPARK_VERSION}.tar.gz \
     && rm v${SPARK_VERSION}.tar.gz \
