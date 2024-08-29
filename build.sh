@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=3.4.1-hadoop3.3-java11
+TAG=3.5.0-hadoop3.3-java11
 
 cd base
 
