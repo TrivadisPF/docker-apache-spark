@@ -1,4 +1,4 @@
-FROM 17-alpine3.17 AS sparkbuild
+FROM amazoncorretto:17-alpine3.17 AS sparkbuild
 
 ENV SPARK_VERSION=3.3.2
 ENV HADOOP_VERSION=3.3.6
